@@ -359,7 +359,9 @@ async function submitSchedule() {
                 console.error('Failed to send email:', error);
             }
         );
-        
+            
+        alert(`Pickup scheduled successfully!\n\nItem: ${selectedScheduleItem.title}\nDate: ${date}\nTime: ${time}\n\nA confirmation email has been sent to ${email}`);
+            
         closeScheduleModal();
     } catch (error) {
         console.error('Error scheduling pickup:', error);
@@ -392,6 +394,7 @@ window.onload = async function() {
     }
 
 };
+
 
 
 
