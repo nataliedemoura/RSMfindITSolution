@@ -333,7 +333,7 @@ async function submitSchedule() {
             requestedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
         
-        // Send confirmation email to student using EmailJS
+        // Send confirmation email using EmailJS
         emailjs.send('service_wwhe20q', 'template_c432pia', {
             student_name: name,
             student_email: email,
@@ -385,4 +385,5 @@ window.onload = async function() {
             `;
         }
     }
+
 };
