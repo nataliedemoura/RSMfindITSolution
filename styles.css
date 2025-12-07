@@ -652,6 +652,7 @@ footer {
     font-size: 0.875rem;
     margin-top: 0.5rem;
     font-style: italic;
+    font-weight: bold;
 }
 
 /* Badge for claimed items */
@@ -1160,6 +1161,7 @@ footer {
 .header-branding:hover .header-logo {
     transform: scale(1.05);
 }
+
 
 
 
