@@ -334,12 +334,6 @@ async function submitSchedule() {
         });
         
         // Send confirmation email using EmailJS    
-        function sendEmail() {
-            const templateParams = {
-                name: document.querySelector("#name).value,
-                email: document.querySelector("#email).value,
-                subject: document.querySelector("#subject).value,
-                message: document.querySelector("#message).value,
         emailjs.send('service_wwhe20q', 'template_c432pia', {
             student_name: name,
             student_email: email,
@@ -393,6 +387,7 @@ window.onload = async function() {
     }
 
 };
+
 
 
 
