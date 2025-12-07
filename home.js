@@ -334,7 +334,7 @@ async function submitSchedule() {
         });
         
         // Send confirmation email using EmailJS
-        emailjs.send('service_zgceqtv', 'template_yet13m', {
+        emailjs.send('service_wwhe20q', 'template_c432pia', {
             student_name: name,
             student_email: email,
             item_title: selectedScheduleItem.title,
@@ -352,8 +352,6 @@ async function submitSchedule() {
                 console.error('Failed to send email:', error);
             }
         );
-        
-        alert(`Pickup scheduled successfully!\n\nItem: ${selectedScheduleItem.title}\nDate: ${date}\nTime: ${time}\n\nA confirmation email has been sent to ${email}`);
         
         closeScheduleModal();
     } catch (error) {
@@ -387,4 +385,5 @@ window.onload = async function() {
     }
 
 };
+
 
