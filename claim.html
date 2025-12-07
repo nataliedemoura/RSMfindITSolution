@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDIT.UMB - Sign out Item</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+
+    <!-- ✅ Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
+            <nav>
+                <button onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="upload-container">
+            <div class="upload-card">
+                <h2 class="section-title">Sign Out Lost Item</h2>
+                <p style="color: #6b7280; margin-bottom: 2rem;">Select the item being claimed:</p>
+                <div id="claimItemsList" class="claim-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Claim Verification Modal -->
+    <div id="claimModal" class="modal-overlay hidden" onclick="closeClaimModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 class="modal-title">Verify Ownership</h2>
+            
+            <div class="form-group">
+                <label class="form-label">Full Name</label>
+                <input type="text" id="claimFullName" class="form-input" placeholder="Enter student's full name" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Student ID Number</label>
+                <input 
+                    type="text" 
+                    id="claimStudentId" 
+                    class="form-input" 
+                    placeholder="Enter student ID number" 
+                    oninput="validateStudentId()"
+                />
+                <p id="idValidationMessage" style="display: none; color: #dc2626; font-size: 0.875rem; margin-top: 0.5rem;">
+                    Please enter a valid student ID number
+                </p>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Digital Signature</label>
+                <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                    Sign below to confirm item pickup
+                </p>
+                <canvas id="signaturePad" class="signature-pad" width="400" height="200"></canvas>
+                <button class="link-btn" onclick="clearSignature()" style="margin-top: 0.5rem;">
+                    Clear Signature
+                </button>
+            </div>
+
+            <div class="button-group">
+                <button class="secondary-btn" onclick="closeClaimModal()">Cancel</button>
+                <button class="submit-btn" onclick="processClaim()">Sign Out Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+    <script src="claim.js"></script>
+</body>
+</html>

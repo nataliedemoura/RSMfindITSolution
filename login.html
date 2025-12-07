@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDIT.UMB - Staff Login</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+
+    <!-- ✅ Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
+            <nav>
+                <button onclick="window.location.href='index.html'">Back to Home</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2 class="auth-title">AUTHORIZED USERS ONLY</h2>
+            <p class="auth-subtitle">Staff Login Required</p>
+            
+            <div id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="staff@umb.edu" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="Enter password" />
+                </div>
+
+                <button class="submit-btn" onclick="handleLogin()">Login</button>
+                
+                <div class="text-center" style="margin-top: 1.5rem;">
+                    <p style="color: #6b7280; font-size: 0.875rem;">Need access? Contact your administrator</p>
+                    <a href="contact.html" class="link-btn" style="font-size: 0.875rem;">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="position: fixed; bottom: 0; width: 100%; background-color: #1f2937; color: white; padding: 1rem; text-align: center;">
+        <p>&copy; 2025 FINDIT.UMB. Jobs well done.</p>
+    </footer>
+
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+    <script src="auth.js"></script>
+</body>
+</html>

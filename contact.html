@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDIT.UMB - Contact Us</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+
+    <!-- ✅ Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <style>
+        /* Social media link styles */
+        .social-link {
+            color: #2563eb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: #1e40af;
+            text-decoration: underline;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
+            <nav>
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">Staff Login</button>
+                <button onclick="window.location.href='contact.html'">Contact Us</button>
+                <button onclick="window.location.href='pickup.html'">Pick Up Info</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="auth-container" style="margin-top: 2rem;">
+        <div class="auth-card">
+            <h2 class="section-title" style="text-align: center;">Contact Us</h2>
+            
+            <!-- Email -->
+            <div class="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" style="margin-top: 0.25rem; flex-shrink: 0;">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                </svg>
+                <div>
+                    <h3 style="font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem;">Email</h3>
+                    <a href="mailto:finditsolutions1@gmail.com" class="social-link">finditsolutions1@gmail.com</a>
+                </div>
+            </div>
+
+            <!-- Instagram -->
+            <div class="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" style="margin-top: 0.25rem; flex-shrink: 0;">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <div>
+                    <h3 style="font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem;">Instagram</h3>
+                    <a href="https://www.instagram.com/finditsolution1?igsh=NWI3b2d6eXY3ZmY4" target="_blank" rel="noopener noreferrer" class="social-link">@finditsolutions1</a>
+                </div>
+            </div>
+
+            <!-- X (Twitter) -->
+            <div class="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" style="margin-top: 0.25rem; flex-shrink: 0;">
+                    <path d="M4 4l11.733 16h4.267l-11.733 -16z"></path>
+                    <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path>
+                </svg>
+                <div>
+                    <h3 style="font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem;">X (Twitter)</h3>
+                    <a href="https://x.com/FindItSolution1?s=20" target="_blank" rel="noopener noreferrer" class="social-link">@FindItSolution1</a>
+                </div>
+            </div>
+
+            <!-- Office Location -->
+            <div class="contact-item">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="2" style="margin-top: 0.25rem; flex-shrink: 0;">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <div>
+                    <h3 style="font-weight: 600; font-size: 1.125rem; margin-bottom: 0.25rem;">Office Location</h3>
+                    <p style="color: #4b5563;">Campus Center, Room 101</p>
+                    <p style="color: #4b5563;">100 Morrissey Blvd, Boston, MA 02125</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 FINDIT.UMB. Jobs well done.</p>
+    </footer>
+
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+    <script src="auth.js"></script>
+    
+</body>
+</html>

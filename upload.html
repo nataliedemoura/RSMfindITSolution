@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDIT.UMB - Upload Item</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+
+    <!-- ✅ Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
+            <nav>
+                <button onclick="window.location.href='dashboard.html'">Back to Dashboard</button>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <div class="upload-container">
+            <div class="upload-card">
+                <h2 class="section-title">Upload Found Item</h2>
+
+                <div class="form-group">
+                    <label class="form-label">Item Photo</label>
+                    
+                    <!-- Photo Options -->
+                    <div class="photo-options">
+                        <button type="button" class="photo-option-btn" onclick="openCamera()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                                <circle cx="12" cy="13" r="4"></circle>
+                            </svg>
+                            Take Photo
+                        </button>
+                        
+                        <button type="button" class="photo-option-btn" onclick="document.getElementById('fileInput').click()">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" x2="12" y1="3" y2="15"></line>
+                            </svg>
+                            Upload from Files
+                        </button>
+                    </div>
+                    
+                    <!-- Hidden file input for selecting from files -->
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileSelect(event)" />
+                    
+                    <!-- Hidden native camera input (mobile fallback) -->
+                    <input type="file" id="nativeCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(event)" />
+                    
+                    <!-- Image Preview -->
+                    <img id="imagePreview" class="image-preview hidden" alt="Preview of uploaded item" />
+                    
+                    <!-- Clear Photo Button -->
+                    <button id="clearPhotoBtn" type="button" class="clear-photo-btn hidden" onclick="clearPhoto()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 6h18"></path>
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                        </svg>
+                        Clear Photo
+                    </button>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select id="uploadCategory" class="form-select">
+                        <option value="">Select a category</option>
+                        <option value="Books/Notebooks/Planners">Books, Notebooks & Planners</option>
+                        <option value="Eyewear">Sunglasses & Prescription Eyewear</option>
+                        <option value="Cellphones">Cellphones</option>
+                        <option value="Audio Devices">Radios, MP3s & iPods</option>
+                        <option value="Jewelry">Jewelry</option>
+                        <option value="Backpacks">Backpacks</option>
+                        <option value="Sports Equipment">Sports Equipment</option>
+                        <option value="Computer Equipment">Computer Equipment</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Wallets/IDs">Wallets & IDs</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Item Title</label>
+                    <input type="text" id="uploadTitle" class="form-input" placeholder="e.g., Blue backpack, iPhone 13" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="uploadDescription" class="form-textarea" rows="4" placeholder="Detailed description including color, brand, distinctive features..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location Found</label>
+                    <select id="uploadLocation" class="form-select">
+                        <option value="">Select location</option>
+                        <option value="Campus Center">Campus Center</option>
+                        <option value="Healey Library">Healey Library</option>
+                        <option value="Wheatley Hall">Wheatley Hall</option>
+                        <option value="McCormack Hall">McCormack Hall</option>
+                        <option value="Science Building">Science Building</option>
+                        <option value="University Hall">University Hall</option>
+                        <option value="Quinn Administration">Quinn Administration</option>
+                        <option value="Parking Garage">Parking Garage</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Date Found</label>
+                    <input type="date" id="uploadDate" class="form-input" />
+                </div>
+
+                <button class="submit-btn" onclick="submitUpload()">Post Item</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Camera Modal -->
+    <div id="cameraModal" class="modal-overlay hidden" onclick="closeCameraModal(event)">
+        <div class="modal-content camera-modal-content" onclick="event.stopPropagation()">
+            <h2 class="modal-title">Take Photo</h2>
+            
+            <div class="camera-container">
+                <video 
+                    id="cameraStream" 
+                    class="camera-stream" 
+                    autoplay 
+                    playsinline 
+                    muted
+                    webkit-playsinline="true"
+                ></video>
+                <canvas id="photoCanvas" class="photo-canvas hidden"></canvas>
+            </div>
+            
+            <div class="camera-controls">
+                <button id="captureBtn" class="camera-btn capture-btn" onclick="capturePhoto()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                    </svg>
+                    Capture
+                </button>
+                
+                <button id="retakeBtn" class="camera-btn secondary-btn hidden" onclick="retakePhoto()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <polyline points="23 20 23 14 17 14"></polyline>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+                    </svg>
+                    Retake
+                </button>
+                
+                <button id="usePhotoBtn" class="camera-btn confirm-btn hidden" onclick="usePhoto()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    Use Photo
+                </button>
+                
+                <button class="camera-btn cancel-btn" onclick="closeCameraModal()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" x2="6" y1="6" y2="18"></line>
+                        <line x1="6" x2="18" y1="6" y2="18"></line>
+                    </svg>
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+    <script src="upload.js"></script>
+</body>
+</html>

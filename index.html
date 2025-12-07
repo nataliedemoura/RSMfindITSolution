@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FINDIT.UMB - Lost & Found</title>
+
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Icons -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+
+    <!-- ✅ Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
+    <!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    (function(){
+        emailjs.init("EZAFlGL_NXZeGMbLz");
+    })();
+</script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
+            <nav>
+                <button onclick="window.location.href='index.html'">Home</button>
+                <button onclick="window.location.href='login.html'">Staff Login</button>
+                <button onclick="window.location.href='contact.html'">Contact Us</button>
+                <button onclick="window.location.href='pickup.html'">Pick Up Info</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Find Your Lost Items</h2>
+        <p>Search through recovered items at UMass Boston</p>
+        
+        <div class="search-container">
+            <div class="search-box">
+                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <path d="m21 21-4.35-4.35"></path>
+                </svg>
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search by item name, description, category..." 
+                    oninput="applyFilters()"
+                />
+            </div>
+            <p class="search-hint">Try searching for "phone", "keys", "backpack", etc.</p>
+        </div>
+    </section>
+
+    <div class="main-content">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h3 class="filter-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                </svg>
+                Filters
+            </h3>
+            
+            <div class="filters-grid">
+                <!-- Category Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Category</label>
+                    <select id="categoryFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">All Categories</option>
+                        <option value="Books/Notebooks/Planners">Books, Notebooks & Planners</option>
+                        <option value="Eyewear">Sunglasses & Prescription Eyewear</option>
+                        <option value="Cellphones">Cellphones</option>
+                        <option value="Audio Devices">Radios, MP3s & iPods</option>
+                        <option value="Jewelry">Jewelry</option>
+                        <option value="Backpacks">Backpacks</option>
+                        <option value="Sports Equipment">Sports Equipment</option>
+                        <option value="Computer Equipment">Computer Equipment</option>
+                        <option value="Keys">Keys</option>
+                        <option value="Wallets/IDs">Wallets & IDs</option>
+                        <option value="Clothing">Clothing</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Location Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Location</label>
+                    <select id="locationFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">All Locations</option>
+                        <option value="Campus Center">Campus Center</option>
+                        <option value="Healey Library">Healey Library</option>
+                        <option value="Wheatley Hall">Wheatley Hall</option>
+                        <option value="McCormack Hall">McCormack Hall</option>
+                        <option value="Science Building">Science Building</option>
+                        <option value="University Hall">University Hall</option>
+                        <option value="Quinn Administration">Quinn Administration</option>
+                        <option value="Parking Garage">Parking Garage</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Date Range Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Date Range</label>
+                    <select id="dateFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="">All Dates</option>
+                        <option value="today">Today</option>
+                        <option value="week">Past Week</option>
+                        <option value="month">Past Month</option>
+                        <option value="3months">Past 3 Months</option>
+                    </select>
+                </div>
+
+                <!-- Availability Filter -->
+                <div class="filter-group">
+                    <label class="filter-label">Availability</label>
+                    <select id="availabilityFilter" class="filter-select" onchange="applyFilters()">
+                        <option value="available">Available Only</option>
+                        <option value="all">Show All Items</option>
+                        <option value="claimed">Claimed Only</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Clear Filters Button -->
+            <button class="clear-filters-btn" onclick="clearAllFilters()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.25rem;">
+                    <path d="M3 6h18"></path>
+                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
+                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
+                </svg>
+                Clear All Filters
+            </button>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="results-summary">
+            <h2 class="section-title">
+                Items 
+                <span class="item-count-badge" id="itemCount">0</span>
+            </h2>
+            <p id="filterSummary" class="filter-summary"></p>
+        </div>
+
+        <!-- Items Grid -->
+        <div id="itemsContainer" class="items-grid"></div>
+    </div>
+
+    <!-- Schedule Pickup Model -->
+    <div id="scheduleModal" class="modal-overlay hidden" onclick="closeScheduleModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h2 class="modal-title">Schedule Pickup</h2>
+            
+            <div id="selectedItemInfo" class="selected-item-info"></div>
+            
+            <div class="form-group">
+                <label class="form-label">Your Full Name</label>
+                <input type="text" id="scheduleName" class="form-input" placeholder="John Doe" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Email Address</label>
+                <input type="email" id="scheduleEmail" class="form-input" placeholder="your.email@umb.edu" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" id="schedulePhone" class="form-input" placeholder="(617) 555-0123" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Student ID Number</label>
+                <input type="text" id="scheduleStudentId" class="form-input" placeholder="Enter your student ID" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Preferred Pickup Date</label>
+                <input type="date" id="scheduleDate" class="form-input" />
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Preferred Pickup Time</label>
+                <select id="scheduleTime" class="form-select">
+                    <option value="">Select a time slot</option>
+                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                    <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                    <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                    <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Additional Notes (Optional)</label>
+                <textarea id="scheduleNotes" class="form-textarea" rows="3" placeholder="Any additional information..."></textarea>
+            </div>
+
+            <div class="pickup-info-box">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0 Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+                <strong>Pickup Location:</strong> Campus Center, Room 101
+            </div>
+
+            <div class="button-group">
+                <button class="secondary-btn" onclick="closeScheduleModal()">Cancel</button>
+                <button class="submit-btn" onclick="submitSchedule()">Schedule Pickup</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 FINDIT.UMB. Jobs well done.</p>
+    </footer>
+
+    <script src="firebase-config.js"></script>
+    <script src="data.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
