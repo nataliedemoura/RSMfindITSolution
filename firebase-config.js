@@ -1,12 +1,12 @@
 // Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDSeMIZ3OBwArgmZHYWpthMoY2gHlx4j2U",
-    authDomain: "it-capstone-e5fd1.firebaseapp.com",
-    projectId: "it-capstone-e5fd1",
-    storageBucket: "it-capstone-e5fd1.firebasestorage.app",
-    messagingSenderId: "1008409958623",
-    appId: "1:1008409958623:web:8ca6af3c63b56e0185b16a",
-    measurementId: "G-BYHJVS9RRZ"
+  apiKey: "AIzaSyDfwVaTGy7GlHbX75imn__YSt2vqWVDlJY",
+  authDomain: "rsm-findit-solution.firebaseapp.com",
+  projectId: "rsm-findit-solution",
+  storageBucket: "rsm-findit-solution.firebasestorage.app",
+  messagingSenderId: "373279245844",
+  appId: "1:373279245844:web:b5b6cdc601f43a9850c901",
+  measurementId: "G-86HW0PCTK4"
 };
 
 // Initialize Firebase
