@@ -648,7 +648,7 @@ footer {
 }
 
 .filter-summary {
-    color: #6b7280;
+    color: black;
     font-size: 0.875rem;
     margin-top: 0.5rem;
     font-style: italic;
@@ -1160,4 +1160,5 @@ footer {
 .header-branding:hover .header-logo {
     transform: scale(1.05);
 }
+
 
