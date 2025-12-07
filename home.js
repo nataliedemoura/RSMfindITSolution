@@ -360,7 +360,7 @@ async function submitSchedule() {
             }
         );
             
-        alert(`Pickup scheduled successfully!\n\nItem: ${selectedScheduleItem.title}\nDate: ${date}\nTime: ${time}\n\nA confirmation email has been sent to ${email}`);
+        alert(`Pickup scheduled successfully!\n\nItem: ${selectedScheduleItem.title}\nDate: ${date}\nTime: ${time}`);
             
         closeScheduleModal();
     } catch (error) {
@@ -394,6 +394,7 @@ window.onload = async function() {
     }
 
 };
+
 
 
 
