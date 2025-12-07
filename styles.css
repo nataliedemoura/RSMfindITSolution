@@ -16,7 +16,7 @@ body {
 
 header {
     background-color: white;
-    color: black;
+    color: #29485c;
     box-shadow: 0 4px 6px gray;
 }
 
@@ -1160,5 +1160,6 @@ footer {
 .header-branding:hover .header-logo {
     transform: scale(1.05);
 }
+
 
 
