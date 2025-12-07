@@ -913,12 +913,12 @@ footer {
 }
 
 .complete-btn {
-    background-color: #10b981;
+    background-color: #8dc73d;
     color: white;
 }
 
 .complete-btn:hover {
-    background-color: #059669;
+    background-color: #10b981;
 }
 
 .cancel-btn {
