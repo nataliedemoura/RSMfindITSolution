@@ -6,7 +6,7 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(to bottom right, #eff6ff, #e0e7ff);
+    background: linear-gradient(to bottom right, white, ivory);
     min-height: 100vh;
 }
 
@@ -15,9 +15,9 @@ body {
 }
 
 header {
-    background-color: #1e3a8a;
+    background-color: #0085a6;
     color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
 }
 
 .header-content {
@@ -53,7 +53,7 @@ nav button:hover {
 }
 
 .hero {
-    background-color: #1e40af;
+    background-color: #0085a6;
     color: white;
     padding: 4rem 1rem;
     text-align: center;
@@ -75,7 +75,7 @@ nav button:hover {
     margin: 0 auto;
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px gray;
     padding: 1.5rem;
 }
 
@@ -87,7 +87,7 @@ nav button:hover {
 }
 
 .search-icon {
-    color: #1e3a8a;
+    color: #0085a6;
 }
 
 #searchInput {
@@ -95,13 +95,13 @@ nav button:hover {
     padding: 0.75rem 1rem;
     color: #1f2937;
     border-radius: 0.5rem;
-    border: 2px solid #bfdbfe;
+    border: 2px solid silver;
     font-size: 1.125rem;
 }
 
 #searchInput:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #0085a6;
 }
 
 .search-hint {
@@ -132,13 +132,13 @@ nav button:hover {
 .item-card {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
     padding: 1.5rem;
     transition: box-shadow 0.3s;
 }
 
 .item-card:hover {
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px gray;
 }
 
 .item-image {
@@ -201,7 +201,7 @@ nav button:hover {
 }
 
 .detail-icon {
-    color: #2563eb;
+    color: blue;
 }
 
 .no-items {
@@ -209,7 +209,7 @@ nav button:hover {
     padding: 3rem;
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px gray;
 }
 
 .no-items p {
@@ -226,21 +226,21 @@ nav button:hover {
 .auth-card {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px gray;
     padding: 2rem;
 }
 
 .auth-title {
     font-size: 2rem;
     font-weight: bold;
-    color: #1e3a8a;
+    color: blue;
     text-align: center;
     margin-bottom: 0.5rem;
 }
 
 .auth-subtitle {
     text-align: center;
-    color: #6b7280;
+    color: gray;
     margin-bottom: 2rem;
 }
 
@@ -270,7 +270,7 @@ nav button:hover {
 .form-select:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #0085a6;
 }
 
 .form-textarea {
@@ -279,7 +279,7 @@ nav button:hover {
 
 .submit-btn {
     width: 100%;
-    background-color: #1e3a8a;
+    background-color: blue;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -291,20 +291,20 @@ nav button:hover {
 }
 
 .submit-btn:hover {
-    background-color: #1e40af;
+    background-color: blue;
 }
 
 .link-btn {
     background: none;
     border: none;
-    color: #2563eb;
+    color: #0085a6;
     cursor: pointer;
     text-decoration: underline;
     font-size: 0.875rem;
 }
 
 .link-btn:hover {
-    color: #1e40af;
+    color: blue;
 }
 
 .text-center {
@@ -332,7 +332,7 @@ nav button:hover {
 }
 
 .logout-btn {
-    background-color: #dc2626;
+    background-color: red;
     color: white;
     padding: 0.5rem 1.5rem;
     border: none;
@@ -355,7 +355,7 @@ nav button:hover {
 .action-card {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
     padding: 2rem;
     text-align: center;
     cursor: pointer;
@@ -364,14 +364,14 @@ nav button:hover {
 
 .action-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 15px gray;
 }
 
 .action-icon {
     width: 64px;
     height: 64px;
     margin: 0 auto 1rem;
-    color: #1e3a8a;
+    color: blue;
 }
 
 .action-title {
@@ -382,7 +382,7 @@ nav button:hover {
 }
 
 .action-description {
-    color: #6b7280;
+    color: gray;
 }
 
 .upload-container {
@@ -393,7 +393,7 @@ nav button:hover {
 .upload-card {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 25px -5px gray;
     padding: 2rem;
 }
 
@@ -407,12 +407,12 @@ nav button:hover {
 }
 
 .file-upload-area:hover {
-    border-color: #3b82f6;
+    border-color: #0085a6;
 }
 
 .file-upload-area.dragover {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: #0085a6;
+    background-color: white;
 }
 
 .upload-icon {
@@ -433,7 +433,7 @@ nav button:hover {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -501,12 +501,12 @@ nav button:hover {
 }
 
 .claim-item:hover {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
+    border-color: #0085a6;
+    background-color: ivory;
 }
 
 .claim-item.selected {
-    border-color: #1e3a8a;
+    border-color: blue;
     background-color: #dbeafe;
 }
 
@@ -556,7 +556,7 @@ footer {
 .filter-section {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
     padding: 1.5rem;
     margin-bottom: 2rem;
 }
@@ -593,7 +593,7 @@ footer {
 .filter-select {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    border: 2px solid #d1d5db;
+    border: 2px solid silver;
     border-radius: 0.375rem;
     font-size: 0.875rem;
     background-color: white;
@@ -603,7 +603,7 @@ footer {
 
 .filter-select:focus {
     outline: none;
-    border-color: #3b82f6;
+    border-color: #0085a6;
 }
 
 .filter-select:hover {
@@ -639,7 +639,7 @@ footer {
 .item-count-badge {
     display: inline-block;
     background-color: #dbeafe;
-    color: #1e40af;
+    color: blue;
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 1rem;
@@ -680,7 +680,7 @@ footer {
 /* Schedule Pickup Button on Item Cards */
 .schedule-pickup-btn {
     width: 100%;
-    background-color: #1e3a8a;
+    background-color: blue;
     color: white;
     padding: 0.75rem;
     border: none;
@@ -696,7 +696,7 @@ footer {
 }
 
 .schedule-pickup-btn:hover {
-    background-color: #1e40af;
+    background-color: blue;
 }
 
 /* Selected Item Info in Modal */
@@ -706,8 +706,8 @@ footer {
 
 /* Pickup Info Box */
 .pickup-info-box {
-    background-color: #fef3c7;
-    border-left: 4px solid #f59e0b;
+    background-color: ivory;
+    border-left: 4px solid orange;
     padding: 1rem;
     border-radius: 0.375rem;
     margin-bottom: 1rem;
@@ -718,7 +718,7 @@ footer {
 .pickup-requests-section {
     background: white;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
     padding: 2rem;
     margin-top: 2rem;
 }
@@ -735,7 +735,7 @@ footer {
 .pickup-count-badge {
     display: inline-block;
     background-color: #dbeafe;
-    color: #1e40af;
+    color: blue;
     padding: 0.25rem 0.75rem;
     border-radius: 9999px;
     font-size: 1rem;
@@ -768,8 +768,8 @@ footer {
 
 .filter-tab.active {
     background-color: #dbeafe;
-    color: #1e40af;
-    border-color: #3b82f6;
+    color: blue;
+    border-color: #0085a6;
 }
 
 /* Pickup Requests List */
@@ -782,7 +782,7 @@ footer {
 .no-pickups {
     text-align: center;
     padding: 3rem 1rem;
-    color: #6b7280;
+    color: gray;
 }
 
 .no-pickups p {
@@ -791,15 +791,15 @@ footer {
 
 /* Pickup Card */
 .pickup-card {
-    background-color: #f9fafb;
-    border: 2px solid #e5e7eb;
+    background-color: white;
+    border: 2px solid whitesmoke;
     border-radius: 0.5rem;
     padding: 1.5rem;
     transition: box-shadow 0.3s;
 }
 
 .pickup-card:hover {
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px gray;
 }
 
 .pickup-header {
@@ -818,7 +818,7 @@ footer {
 }
 
 .pickup-item-meta {
-    color: #6b7280;
+    color: gray;
     font-size: 0.875rem;
 }
 
@@ -846,7 +846,7 @@ footer {
 }
 
 .pickup-detail .detail-icon {
-    color: #2563eb;
+    color: #0085a6;
     flex-shrink: 0;
     margin-top: 0.25rem;
 }
@@ -859,7 +859,7 @@ footer {
 
 .detail-label {
     font-size: 0.75rem;
-    color: #6b7280;
+    color: gray;
     font-weight: 600;
     text-transform: uppercase;
 }
@@ -872,7 +872,7 @@ footer {
 
 /* Pickup Notes */
 .pickup-notes {
-    background-color: #eff6ff;
+    background-color: ivory;
     padding: 0.75rem;
     border-radius: 0.375rem;
     margin-bottom: 1rem;
@@ -886,7 +886,7 @@ footer {
     gap: 0.75rem;
     flex-wrap: wrap;
     padding-top: 1rem;
-    border-top: 2px solid #e5e7eb;
+    border-top: 2px solid silver;
 }
 
 .pickup-action-btn {
@@ -904,7 +904,7 @@ footer {
 }
 
 .confirm-btn {
-    background-color: #3b82f6;
+    background-color: #0085a6;
     color: white;
 }
 
@@ -992,7 +992,7 @@ footer {
 
 .photo-option-btn:hover {
     background-color: #e5e7eb;
-    border-color: #9ca3af;
+    border-color: gray;
 }
 
 .photo-option-btn svg {
@@ -1079,11 +1079,11 @@ footer {
 }
 
 .capture-btn:hover {
-    background-color: #1e40af;
+    background-color: blue;
 }
 
 .cancel-btn {
-    background-color: #6b7280;
+    background-color: gray;
     color: white;
 }
 
@@ -1115,7 +1115,7 @@ footer {
 /* Camera Permission Notice */
 .camera-notice {
     background-color: #fef3c7;
-    border-left: 4px solid #f59e0b;
+    border-left: 4px solid orange;
     padding: 1rem;
     border-radius: 0.375rem;
     margin-bottom: 1rem;
@@ -1127,7 +1127,7 @@ footer {
     display: inline;
     vertical-align: middle;
     margin-right: 0.5rem;
-    color: #f59e0b;
+    color: orange;
 }
 
 /* ===== LOGO STYLES ===== */
