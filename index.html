@@ -1,226 +1,1162 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FINDIT.RSM - Lost & Found</title>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    <link rel="stylesheet" href="styles.css">
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: linear-gradient(to bottom right, white, ivory);
+    min-height: 100vh;
+}
 
-    <!-- Icons -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
+.hidden {
+    display: none !important;
+}
 
-    <!-- ✅ Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+header {
+    background-color: #3b82f6;
+    color: white;
+    box-shadow: 0 4px 6px gray;
+}
 
-    <!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("EZAFlGL_NXZeGMbLz");
-    })();
-</script>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <img src="logo.png" alt="FINDIT.UMB Logo" class="header-logo" onclick="window.location.href='index.html'">
-            <nav>
-                <button onclick="window.location.href='index.html'">Home</button>
-                <button onclick="window.location.href='login.html'">Staff Login</button>
-                <button onclick="window.location.href='contact.html'">Contact Us</button>
-                <button onclick="window.location.href='pickup.html'">Pick Up Info</button>
-            </nav>
-        </div>
-    </header>
+.header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    <section class="hero">
-        <h2>Find Your Lost Items</h2>
-        <p>Search through recovered items at Russian School of Mathematics</p>
-        
-        <div class="search-container">
-            <div class="search-box">
-                <svg class="search-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8"></circle>
-                    <path d="m21 21-4.35-4.35"></path>
-                </svg>
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Search by item name, description, category..." 
-                    oninput="applyFilters()"
-                />
-            </div>
-            <p class="search-hint">Try searching for "phone", "keys", "backpack", etc.</p>
-        </div>
-    </section>
+h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+}
 
-    <div class="main-content">
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <h3 class="filter-title">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
-                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                </svg>
-                Filters
-            </h3>
-            
-            <div class="filters-grid">
-                <!-- Category Filter -->
-                <div class="filter-group">
-                    <label class="filter-label">Category</label>
-                    <select id="categoryFilter" class="filter-select" onchange="applyFilters()">
-                        <option value="">All Categories</option>
-                        <option value="Books/Notebooks/Planners">Books, Notebooks & Planners</option>
-                        <option value="Eyewear">Sunglasses & Prescription Eyewear</option>
-                        <option value="Cellphones">Cellphones</option>
-                        <option value="Audio Devices">Radios, MP3s & iPods</option>
-                        <option value="Jewelry">Jewelry</option>
-                        <option value="Backpacks">Backpacks</option>
-                        <option value="Sports Equipment">Sports Equipment</option>
-                        <option value="Computer Equipment">Computer Equipment</option>
-                        <option value="Keys">Keys</option>
-                        <option value="Wallets/IDs">Wallets & IDs</option>
-                        <option value="Clothing">Clothing</option>
-                        <option value="Water Bottle/Food Containers"> Water Bottle/Food Containers</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
+nav {
+    display: flex;
+    gap: 1.5rem;
+}
 
-                <!-- Location Filter -->
-                <div class="filter-group">
-                    <label class="filter-label">Location</label>
-                    <select id="locationFilter" class="filter-select" onchange="applyFilters()">
-                        <option value="">All Locations</option>
-                        <option value="Campus Center">Classroom</option>
-                        <option value="Healey Library">Lobby</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
+nav button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: color 0.3s;
+}
 
-                <!-- Date Range Filter -->
-                <div class="filter-group">
-                    <label class="filter-label">Date Range</label>
-                    <select id="dateFilter" class="filter-select" onchange="applyFilters()">
-                        <option value="">All Dates</option>
-                        <option value="today">Today</option>
-                        <option value="week">Past Week</option>
-                        <option value="month">Past Month</option>
-                        <option value="3months">Past 3 Months</option>
-                    </select>
-                </div>
+nav button:hover {
+    color: #bfdbfe;
+}
 
-                <!-- Availability Filter -->
-                <div class="filter-group">
-                    <label class="filter-label">Availability</label>
-                    <select id="availabilityFilter" class="filter-select" onchange="applyFilters()">
-                        <option value="available">Available Only</option>
-                        <option value="all">Show All Items</option>
-                        <option value="claimed">Claimed Only</option>
-                    </select>
-                </div>
-            </div>
+.hero {
+    background-color: #0085a6;
+    color: white;
+    padding: 4rem 1rem;
+    text-align: center;
+}
 
-            <!-- Clear Filters Button -->
-            <button class="clear-filters-btn" onclick="clearAllFilters()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.25rem;">
-                    <path d="M3 6h18"></path>
-                    <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path>
-                    <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path>
-                </svg>
-                Clear All Filters
-            </button>
-        </div>
+.hero h2 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
 
-        <!-- Results Summary -->
-        <div class="results-summary">
-            <h2 class="section-title">
-                Items 
-                <span class="item-count-badge" id="itemCount">0</span>
-            </h2>
-            <p id="filterSummary" class="filter-summary"></p>
-        </div>
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
 
-        <!-- Items Grid -->
-        <div id="itemsContainer" class="items-grid"></div>
-    </div>
+.search-container {
+    max-width: 42rem;
+    margin: 0 auto;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px gray;
+    padding: 1.5rem;
+}
 
-    <!-- Schedule Pickup Model -->
-    <div id="scheduleModal" class="modal-overlay hidden" onclick="closeScheduleModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 class="modal-title">Schedule Pickup</h2>
-            
-            <div id="selectedItemInfo" class="selected-item-info"></div>
-            
-            <div class="form-group">
-                <label class="form-label">Your Full Name</label>
-                <input type="text" id="scheduleName" class="form-input" placeholder="John Doe" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Email Address</label>
-                <input type="email" id="scheduleEmail" class="form-input" placeholder="your.email@umb.edu" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" id="schedulePhone" class="form-input" placeholder="(617) 555-0123" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Student ID Number</label>
-                <input type="text" id="scheduleStudentId" class="form-input" placeholder="Enter your student ID" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Preferred Pickup Date</label>
-                <input type="date" id="scheduleDate" class="form-input" />
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Preferred Pickup Time</label>
-                <select id="scheduleTime" class="form-select">
-                    <option value="">Select a time slot</option>
-                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
-                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
-                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
-                    <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
-                    <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
-                    <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Additional Notes (Optional)</label>
-                <textarea id="scheduleNotes" class="form-textarea" rows="3" placeholder="Any additional information..."></textarea>
-            </div>
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
 
-            <div class="pickup-info-box">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: inline; vertical-align: middle; margin-right: 0.5rem;">
-                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0 Z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                <strong>Pickup Location:</strong> Campus Center, Room 101
-            </div>
+.search-icon {
+    color: #0085a6;
+}
 
-            <div class="button-group">
-                <button class="secondary-btn" onclick="closeScheduleModal()">Cancel</button>
-                <button class="submit-btn" onclick="submitSchedule()">Schedule Pickup</button>
-            </div>
-        </div>
-    </div>
+#searchInput {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    color: #1f2937;
+    border-radius: 0.5rem;
+    border: 2px solid silver;
+    font-size: 1.125rem;
+}
 
-    <footer>
-        <p>&copy; 2025 FINDIT.RSM</p>
-    </footer>
+#searchInput:focus {
+    outline: none;
+    border-color: #0085a6;
+}
 
-    <script src="firebase-config.js"></script>
-    <script src="data.js"></script>
-    <script src="home.js"></script>
-</body>
-</html>
+.search-hint {
+    font-size: 0.875rem;
+    color: #4b5563;
+    text-align: left;
+}
 
+.main-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.section-title {
+    font-size: 1.875rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 2rem;
+}
+
+.items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.item-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px gray;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s;
+}
+
+.item-card:hover {
+    box-shadow: 0 10px 15px gray;
+}
+
+.item-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+}
+
+.item-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-found {
+    background-color: #d1fae5;
+    color: #065f46;
+}
+
+.item-category {
+    font-size: 0.875rem;
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.item-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.item-description {
+    color: #4b5563;
+    margin-bottom: 1rem;
+}
+
+.item-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.detail-icon {
+    color: blue;
+}
+
+.no-items {
+    text-align: center;
+    padding: 3rem;
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px gray;
+}
+
+.no-items p {
+    color: #4b5563;
+    font-size: 1.125rem;
+}
+
+.auth-container {
+    max-width: 28rem;
+    margin: 4rem auto;
+    padding: 1rem;
+}
+
+.auth-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px gray;
+    padding: 2rem;
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: gray;
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    color: #374151;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: #0085a6;
+}
+
+.form-textarea {
+    resize: vertical;
+}
+
+.submit-btn {
+    width: 100%;
+    background-color: blue;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: blue;
+}
+
+.link-btn {
+    background: none;
+    border: none;
+    color: #0085a6;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.875rem;
+}
+
+.link-btn:hover {
+    color: blue;
+}
+
+.text-center {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.dashboard-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.welcome-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.logout-btn {
+    background-color: red;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    background-color: #b91c1c;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.action-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px gray;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px gray;
+}
+
+.action-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1rem;
+    color: blue;
+}
+
+.action-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.action-description {
+    color: gray;
+}
+
+.upload-container {
+    max-width: 48rem;
+    margin: 0 auto;
+}
+
+.upload-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 20px 25px -5px gray;
+    padding: 2rem;
+}
+
+.file-upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.file-upload-area:hover {
+    border-color: #0085a6;
+}
+
+.file-upload-area.dragover {
+    border-color: #0085a6;
+    background-color: white;
+}
+
+.upload-icon {
+    margin: 0 auto 1rem;
+    color: #6b7280;
+}
+
+.image-preview {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 2rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #1f2937;
+}
+
+.signature-pad {
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    cursor: crosshair;
+    touch-action: none;
+    width: 100%;
+}
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.secondary-btn {
+    flex: 1;
+    background-color: #6b7280;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.secondary-btn:hover {
+    background-color: #4b5563;
+}
+
+.claim-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.claim-item {
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.claim-item:hover {
+    border-color: #0085a6;
+    background-color: ivory;
+}
+
+.claim-item.selected {
+    border-color: blue;
+    background-color: #dbeafe;
+}
+
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #1f2937;
+    color: white;
+    padding: 1.5rem 1rem;
+    margin-top: 3rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .items-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Add these styles to your existing styles.css file */
+
+/* Filter Section */
+.filter-section {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px gray;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.filter-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-label {
+    display: block;
+    color: #374151;
+    font-weight: 600;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 2px solid silver;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    background-color: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #0085a6;
+}
+
+.filter-select:hover {
+    border-color: #9ca3af;
+}
+
+.clear-filters-btn {
+    background-color: #f3f4f6;
+    color: #374151;
+    padding: 0.5rem 1rem;
+    border: 2px solid #d1d5db;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+.clear-filters-btn:hover {
+    background-color: #e5e7eb;
+    border-color: #9ca3af;
+}
+
+/* Results Summary */
+.results-summary {
+    margin-bottom: 1.5rem;
+}
+
+.item-count-badge {
+    display: inline-block;
+    background-color: #dbeafe;
+    color: blue;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+.filter-summary {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    font-style: italic;
+}
+
+/* Badge for claimed items */
+.badge-claimed {
+    background-color: #fee2e2;
+    color: #991b1b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .filter-section {
+        padding: 1rem;
+    }
+    
+    .clear-filters-btn {
+        width: 100%;
+    }
+}
+
+/* Add these styles to the END of your styles.css file */
+
+/* Schedule Pickup Button on Item Cards */
+.schedule-pickup-btn {
+    width: 100%;
+    background-color: blue;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.schedule-pickup-btn:hover {
+    background-color: blue;
+}
+
+/* Selected Item Info in Modal */
+.selected-item-info {
+    margin-bottom: 1rem;
+}
+
+/* Pickup Info Box */
+.pickup-info-box {
+    background-color: ivory;
+    border-left: 4px solid orange;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+}
+
+/* Pickup Requests Section */
+.pickup-requests-section {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px gray;
+    padding: 2rem;
+    margin-top: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pickup-count-badge {
+    display: inline-block;
+    background-color: #dbeafe;
+    color: blue;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+}
+
+/* Pickup Filter Tabs */
+.pickup-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    background-color: #f3f4f6;
+    color: #374151;
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.filter-tab:hover {
+    background-color: #e5e7eb;
+}
+
+.filter-tab.active {
+    background-color: #dbeafe;
+    color: blue;
+    border-color: #0085a6;
+}
+
+/* Pickup Requests List */
+.pickup-requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.no-pickups {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: gray;
+}
+
+.no-pickups p {
+    margin-top: 0.5rem;
+}
+
+/* Pickup Card */
+.pickup-card {
+    background-color: white;
+    border: 2px solid whitesmoke;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s;
+}
+
+.pickup-card:hover {
+    box-shadow: 0 4px 6px gray;
+}
+
+.pickup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
+
+.pickup-item-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+}
+
+.pickup-item-meta {
+    color: gray;
+    font-size: 0.875rem;
+}
+
+.pickup-status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Pickup Details Grid */
+.pickup-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.pickup-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+}
+
+.pickup-detail .detail-icon {
+    color: #0085a6;
+    flex-shrink: 0;
+    margin-top: 0.25rem;
+}
+
+.pickup-detail > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.detail-label {
+    font-size: 0.75rem;
+    color: gray;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.detail-value {
+    font-size: 0.875rem;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Pickup Notes */
+.pickup-notes {
+    background-color: ivory;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #374151;
+}
+
+/* Pickup Actions */
+.pickup-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding-top: 1rem;
+    border-top: 2px solid silver;
+}
+
+.pickup-action-btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+}
+
+.confirm-btn {
+    background-color: #0085a6;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: #2563eb;
+}
+
+.complete-btn {
+    background-color: #8dc73d;
+    color: white;
+}
+
+.complete-btn:hover {
+    background-color: #10b981;
+}
+
+.cancel-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #dc2626;
+}
+
+.email-btn {
+    background-color: #6b7280;
+    color: white;
+}
+
+.email-btn:hover {
+    background-color: #4b5563;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .pickup-header {
+        flex-direction: column;
+    }
+    
+    .pickup-details-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .pickup-actions {
+        flex-direction: column;
+    }
+    
+    .pickup-action-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Add these styles to the END of your styles.css file */
+
+/* Photo Options Buttons */
+.photo-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.photo-option-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    background-color: #f3f4f6;
+    border: 2px solid #d1d5db;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 600;
+    color: #374151;
+}
+
+.photo-option-btn:hover {
+    background-color: #e5e7eb;
+    border-color: gray;
+}
+
+.photo-option-btn svg {
+    color: #1e3a8a;
+}
+
+/* Clear Photo Button */
+.clear-photo-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #fca5a5;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+}
+
+.clear-photo-btn:hover {
+    background-color: #fecaca;
+}
+
+/* Camera Modal */
+.camera-modal-content {
+    max-width: 800px;
+    width: 95%;
+}
+
+.camera-container {
+    position: relative;
+    width: 100%;
+    background-color: #000;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.camera-stream {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.photo-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Camera Controls */
+.camera-controls {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.camera-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.capture-btn {
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.capture-btn:hover {
+    background-color: blue;
+}
+
+.cancel-btn {
+    background-color: gray;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #4b5563;
+}
+
+/* Responsive Design for Camera */
+@media (max-width: 768px) {
+    .photo-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .camera-modal-content {
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    .camera-controls {
+        flex-direction: column;
+    }
+    
+    .camera-btn {
+        width: 100%;
+    }
+}
+
+/* Camera Permission Notice */
+.camera-notice {
+    background-color: #fef3c7;
+    border-left: 4px solid orange;
+    padding: 1rem;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    color: #78350f;
+}
+
+.camera-notice svg {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    color: orange;
+}
+
+/* ===== LOGO STYLES ===== */
+.header-logo {
+    height: 50px; /* Adjust based on your logo size */
+    width: auto;
+    display: block;
+    transition: transform 0.3s;
+}
+
+.header-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Make logo responsive on mobile */
+@media (max-width: 768px) {
+    .header-logo {
+        height: 40px;
+    }
+}
+
+/* Optional: If you want both logo and text */
+.header-branding {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.header-branding:hover .header-logo {
+    transform: scale(1.05);
+}
