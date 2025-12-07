@@ -334,7 +334,7 @@ async function submitSchedule() {
         });
         
         // Send confirmation email using EmailJS
-        emailjs.send('service_wwhe20q', 'template_c432pia', {
+        emailjs.send('service_zgceqtv', 'template_yet13m', {
             student_name: name,
             student_email: email,
             item_title: selectedScheduleItem.title,
@@ -387,3 +387,4 @@ window.onload = async function() {
     }
 
 };
+
