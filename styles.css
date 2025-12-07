@@ -15,7 +15,7 @@ body {
 }
 
 header {
-    background-color: #0085a6;
+    background-color: #3b82f6;
     color: white;
     box-shadow: 0 4px 6px gray;
 }
@@ -1160,5 +1160,3 @@ footer {
 .header-branding:hover .header-logo {
     transform: scale(1.05);
 }
-
-
