@@ -333,14 +333,7 @@ async function submitSchedule() {
             requestedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
         
-        // Send confirmation email using EmailJS
-        
-        function sendEmail() {
-            const templateParams = {
-                name: document.querySelector("#name).value,
-                email: document.querySelector("#email).value,
-                subject: document.querySelector("#subject).value,
-                message: document.querySelector("#message).value,          
+        // Send confirmation email using EmailJS    
         emailjs.send('service_wwhe20q', 'template_c432pia', {
             student_name: name,
             student_email: email,
@@ -363,11 +356,11 @@ async function submitSchedule() {
         alert(`Pickup scheduled successfully!\n\nItem: ${selectedScheduleItem.title}\nDate: ${date}\nTime: ${time}`);
             
         closeScheduleModal();
-    } catch (error) {
-        console.error('Error scheduling pickup:', error);
-        alert('Failed to schedule pickup: ' + error.message);
+        } catch (error) {
+            console.error('Error scheduling pickup:', error);
+            alert('Failed to schedule pickup: ' + error.message);
+        }
     }
-}
 
 // Initialize home page
 window.onload = async function() {
@@ -394,6 +387,7 @@ window.onload = async function() {
     }
 
 };
+
 
 
 
