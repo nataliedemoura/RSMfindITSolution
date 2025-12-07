@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FINDIT - Lost & Found</title>
+    <title>FINDIT.UMB - Lost & Found</title>
 
     <link rel="stylesheet" href="styles.css">
 
@@ -39,7 +39,7 @@
 
     <section class="hero">
         <h2>Find Your Lost Items</h2>
-        <p>Search through recovered items at RSM Brookline</p>
+        <p>Search through recovered items at UMass Boston</p>
         
         <div class="search-container">
             <div class="search-box">
@@ -94,8 +94,14 @@
                     <label class="filter-label">Location</label>
                     <select id="locationFilter" class="filter-select" onchange="applyFilters()">
                         <option value="">All Locations</option>
-                        <option value="Campus Center">Lobby</option>
-                        <option value="Healey Library">Classroom</option>
+                        <option value="Campus Center">Campus Center</option>
+                        <option value="Healey Library">Healey Library</option>
+                        <option value="Wheatley Hall">Wheatley Hall</option>
+                        <option value="McCormack Hall">McCormack Hall</option>
+                        <option value="Science Building">Science Building</option>
+                        <option value="University Hall">University Hall</option>
+                        <option value="Quinn Administration">Quinn Administration</option>
+                        <option value="Parking Garage">Parking Garage</option>
                         <option value="Other">Other</option>
                     </select>
                 </div>
@@ -182,14 +188,14 @@
             <div class="form-group">
                 <label class="form-label">Preferred Pickup Time</label>
                 <select id="scheduleTime" class="form-select">
-                    <option value="1:00 PM - 2:00 PM">1:00 PM - 1:30 PM</option>
-                    <option value="1:00 PM - 2:00 PM">1:30 PM - 2:00 PM</option>
-                    <option value="2:00 PM - 3:00 PM">2:00 PM - 2:30 PM</option>
-                    <option value="3:00 PM - 4:00 PM">2:30 PM - 3:00 PM</option>
-                    <option value="3:00 PM - 4:00 PM">3:00 PM - 3:30 PM</option>
-                    <option value="3:00 PM - 4:00 PM">3:30 PM - 4:00 PM</option>
-                    <option value="3:00 PM - 4:00 PM">4:00 PM - 4:30 PM</option>
-                    <option value="3:00 PM - 4:00 PM">4:30 PM - 5:00 PM</option>
+                    <option value="">Select a time slot</option>
+                    <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+                    <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+                    <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+                    <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+                    <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+                    <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+                    <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
                 </select>
             </div>
             
@@ -203,7 +209,7 @@
                     <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0 Z"></path>
                     <circle cx="12" cy="10" r="3"></circle>
                 </svg>
-                <strong>Pickup Location:</strong> RSM Brookline
+                <strong>Pickup Location:</strong> Campus Center, Room 101
             </div>
 
             <div class="button-group">
@@ -214,13 +220,11 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Russian School of Math.</p>
+        <p>&copy; 2025 FINDIT.UMB. Jobs well done.</p>
     </footer>
 
     <script src="firebase-config.js"></script>
     <script src="data.js"></script>
     <script src="home.js"></script>
 </body>
-
 </html>
-
