@@ -17,12 +17,24 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
     <!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-    (function(){
-        emailjs.init("EZAFlGL_NXZeGMbLz");
-    })();
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function(){
+            emailjs.init("EZAFlGL_NXZeGMbLz");
+        })();
+    </script>
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init({
+            publicKey: "HVA01W9QhtO6AOFG_",
+          });
+       })();
+    </script>
+    <script src="home.js"></script>
+    
 </head>
 <body>
     <header>
@@ -225,6 +237,7 @@
     <script src="home.js"></script>
 </body>
 </html>
+
 
 
 
