@@ -487,7 +487,6 @@ nav button:hover {
 }
 
 .claim-list {
-    max-height: 400px;
     overflow-y: auto;
 }
 
@@ -1161,6 +1160,7 @@ footer {
 .header-branding:hover .header-logo {
     transform: scale(1.05);
 }
+
 
 
 
