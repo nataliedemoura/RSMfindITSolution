@@ -90,22 +90,6 @@ function clearSignature() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     isDrawing = false;
-}
-
-// Check if signature pad has content
-function hasSignature() {
-    const canvas = document.getElementById('signaturePad');
-    if (!canvas) return false;
-    
-    const ctx = canvas.getContext('2d');
-    const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-    
-    // Check if any pixel is not transparent
-    for (let i = 3; i < pixelData.length; i += 4) {
-        if (pixelData[i] > 0) return true;
-    }
-    return false;
-}
 
 // Get signature as data URL
 function getSignatureDataURL() {
@@ -392,4 +376,5 @@ window.onload = function() {
             alert('Failed to load items. Please refresh the page.');
         }
     });
+
 };
