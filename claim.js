@@ -1,5 +1,4 @@
 let selectedClaimItem = null;
-let signaturePad = null;
 let isDrawing = false;
 
 // Initialize signature pad
@@ -302,26 +301,6 @@ async function processClaim() {
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Processing...';
-    
-    try {
-        // Get signature as data URL
-        const signatureDataURL = getSignatureDataURL();
-        
-        // Upload signature to Firebase Storage
-        let signatureUrl = null;
-        if (signatureDataURL) {
-            try {
-                const blob = await fetch(signatureDataURL).then(r => r.blob());
-                const storageRef = storage.ref(`signatures/${selectedClaimItem.id}_${Date.now()}.png`);
-                const snapshot = await storageRef.put(blob);
-                signatureUrl = await snapshot.ref.getDownloadURL();
-                console.log('Signature uploaded successfully:', signatureUrl);
-            } catch (storageError) {
-                console.error('Failed to upload signature:', storageError);
-                // Continue without signature URL if storage fails
-                signatureUrl = null;
-            }
-        }
         
         // Update item in Firestore
         await db.collection('items').doc(selectedClaimItem.id).update({
@@ -329,7 +308,6 @@ async function processClaim() {
             claimedAt: firebase.firestore.FieldValue.serverTimestamp(),
             claimedByName: fullName,
             claimedByStudentId: studentId,
-            claimedBySignature: signatureUrl,
             claimedByStaff: currentUser ? currentUser.uid : 'unknown'
         });
         
@@ -379,4 +357,5 @@ window.onload = function() {
     });
 
 };
+
 
