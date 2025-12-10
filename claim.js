@@ -90,7 +90,8 @@ function clearSignature() {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     isDrawing = false;
-
+}
+    
 // Get signature as data URL
 function getSignatureDataURL() {
     const canvas = document.getElementById('signaturePad');
@@ -378,3 +379,4 @@ window.onload = function() {
     });
 
 };
+
