@@ -1,102 +1,4 @@
 let selectedClaimItem = null;
-let isDrawing = false;
-
-// Initialize signature pad
-function initSignaturePad() {
-    const canvas = document.getElementById('signaturePad');
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    ctx.strokeStyle = '#000000';
-    ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-
-    let drawing = false;
-    let lastX = 0;
-    let lastY = 0;
-
-    // Mouse events
-    canvas.addEventListener('mousedown', (e) => {
-        drawing = true;
-        isDrawing = true;
-        const rect = canvas.getBoundingClientRect();
-        lastX = e.clientX - rect.left;
-        lastY = e.clientY - rect.top;
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
-        if (!drawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        
-        lastX = x;
-        lastY = y;
-    });
-
-    canvas.addEventListener('mouseup', () => {
-        drawing = false;
-    });
-
-    canvas.addEventListener('mouseleave', () => {
-        drawing = false;
-    });
-
-    // Touch events for mobile
-    canvas.addEventListener('touchstart', (e) => {
-        e.preventDefault();
-        drawing = true;
-        isDrawing = true;
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        lastX = touch.clientX - rect.left;
-        lastY = touch.clientY - rect.top;
-    });
-
-    canvas.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-        if (!drawing) return;
-        const rect = canvas.getBoundingClientRect();
-        const touch = e.touches[0];
-        const x = touch.clientX - rect.left;
-        const y = touch.clientY - rect.top;
-        
-        ctx.beginPath();
-        ctx.moveTo(lastX, lastY);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-        
-        lastX = x;
-        lastY = y;
-    });
-
-    canvas.addEventListener('touchend', () => {
-        drawing = false;
-    });
-}
-
-// Clear signature
-function clearSignature() {
-    const canvas = document.getElementById('signaturePad');
-    if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    isDrawing = false;
-}
-    
-// Get signature as data URL
-function getSignatureDataURL() {
-    const canvas = document.getElementById('signaturePad');
-    if (!canvas) return null;
-    return canvas.toDataURL('image/png');
-}
 
 // Validate student ID
 function validateStudentId() {
@@ -222,7 +124,6 @@ async function openClaimModal(itemId) {
         // Clear form
         document.getElementById('claimFullName').value = '';
         document.getElementById('claimStudentId').value = '';
-        clearSignature();
         
         // Clear validation message
         const validationMsg = document.getElementById('idValidationMessage');
@@ -231,12 +132,6 @@ async function openClaimModal(itemId) {
         // Show modal
         document.getElementById('claimModal').classList.remove('hidden');
         document.body.style.overflow = 'hidden';
-        
-        // Initialize signature pad if not already done
-        if (!signaturePad) {
-            initSignaturePad();
-            signaturePad = true;
-        }
     } catch (error) {
         console.error('Error opening claim modal:', error);
         alert('Failed to load item details: ' + error.message);
@@ -253,7 +148,6 @@ function closeClaimModal(event) {
         // Clear form
         document.getElementById('claimFullName').value = '';
         document.getElementById('claimStudentId').value = '';
-        clearSignature();
         
         // Clear validation messages
         const validationMsg = document.getElementById('idValidationMessage');
@@ -279,11 +173,6 @@ async function processClaim() {
         return;
     }
     
-    if (!hasSignature()) {
-        alert('Please provide a signature');
-        return;
-    }
-    
     if (!selectedClaimItem) {
         alert('No item selected');
         return;
@@ -301,7 +190,8 @@ async function processClaim() {
     const originalText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = 'Processing...';
-        
+    
+    try {
         // Update item in Firestore
         await db.collection('items').doc(selectedClaimItem.id).update({
             claimed: true,
@@ -355,7 +245,4 @@ window.onload = function() {
             alert('Failed to load items. Please refresh the page.');
         }
     });
-
 };
-
-
